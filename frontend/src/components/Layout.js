@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-} from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 const Layout = ({ children }) => {
   return (
@@ -26,12 +19,18 @@ const Layout = ({ children }) => {
       }}
     >
       <Grid
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         sx={{
-          paddingTop: "50px",
+          paddingTop: "35px",
+          paddingBottom: "5vh",
         }}
+        height="50%"
       >
-        <img src="/goldthief.png" width="100%" height="45%" />
+        <img src="/goldthief.png" width="90%" height="30%" />
       </Grid>
+      <Box>{children}</Box>
     </Box>
   );
 };
