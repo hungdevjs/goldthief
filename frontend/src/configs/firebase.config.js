@@ -2,14 +2,16 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+import environments from "../utils/environments";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAWZlmN7g6u2DLoTVyW9tGNDiVb-7YmX8g",
-  authDomain: "goldthief-df9a4.firebaseapp.com",
-  projectId: "goldthief-df9a4",
-  storageBucket: "goldthief-df9a4.appspot.com",
-  messagingSenderId: "685132469435",
-  appId: "1:685132469435:web:1053dc2089a6d86db4c59e",
-  measurementId: "G-H3BNG6YZWN",
+  apiKey: environments.FIREBASE_API,
+  authDomain: environments.FIREBASE_AUTH_DOMAIN,
+  projectId: environments.FIREBASE_PROJECT_ID,
+  storageBucket: environments.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: environments.FIREBASE_MESSAGING_SENDER_ID,
+  appId: environments.FIREBASE_APP_ID,
+  measurementId: environments.FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
