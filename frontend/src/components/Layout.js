@@ -1,4 +1,5 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+import useResponsive from "../hooks/useResponsive";
 
 const Layout = ({ children }) => {
   return (
@@ -18,18 +19,20 @@ const Layout = ({ children }) => {
         backgroundPosition: "center",
       }}
     >
-      <Grid
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
+      <Typography
+        fontFamily="'Luckiest Guy', cursive"
+        fontWeight="600"
+        height="30vh"
         sx={{
-          paddingTop: "35px",
-          paddingBottom: "5vh",
+          textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          paddingTop: "8vh",
+          mb: 10,
+          color: "rgba(255, 226, 89, 0.5)",
+          fontSize: "10vw",
         }}
-        height="50%"
       >
-        <img src="/goldthief.png" width="90%" height="30%" />
-      </Grid>
+        Gold Thief
+      </Typography>
       <Box>{children}</Box>
     </Box>
   );

@@ -1,18 +1,31 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login } = useAuth();
+
+  const signIn = async () => {
+    try {
+      console.log(email, password);
+      await login(email, password);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <Layout>
       <Box display="flex" flexDirection="column" spacing={3} sx={{ gap: 1 }}>
         <TextField
           size="small"
-          label="Username"
+          label="Email"
           sx={{
             background: "rgba(31, 31, 31, 0.4)",
             border: "2px solid #D68F24",
@@ -26,7 +39,7 @@ const Login = () => {
               color: "#FF9900",
             },
           }}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           size="small"
@@ -57,6 +70,7 @@ const Login = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
+          onClick={() => signIn()}
         >
           Login
         </Button>
