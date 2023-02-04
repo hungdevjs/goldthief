@@ -1,11 +1,13 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 
-import useAuth from "../hooks/useAuth";
-import MainRoutes from "./MainRoutes";
-import AuthRoutes from "./AuthRoutes";
+import MainRoutes from './MainRoutes';
+import AuthRoutes from './AuthRoutes';
+import useAppContext from '../hooks/useAppContext';
 
 const Navigation = () => {
-  const { user, isInitialized } = useAuth();
+  const {
+    authState: { user, isInitialized },
+  } = useAppContext();
 
   if (!isInitialized) return null;
 

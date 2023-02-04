@@ -1,7 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
+
+import useAuth from '../hooks/useAuth';
 
 export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
-  return <AppContext.Provider value={{}}>{children}</AppContext.Provider>;
+  const authState = useAuth();
+
+  return (
+    <AppContext.Provider value={{ authState }}>{children}</AppContext.Provider>
+  );
 };
