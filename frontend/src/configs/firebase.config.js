@@ -14,9 +14,7 @@ const firebaseConfig = {
   measurementId: environments.FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-
-export default app;
+export const app = initializeApp(firebaseConfig);
 
 export const firestore = getFirestore(app);
 

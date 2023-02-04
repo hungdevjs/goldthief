@@ -9,7 +9,7 @@ const RoomRoute = () => {
     <Routes>
       <Route path="/create" element={<CreateRoom />} />
       <Route path="/join" element={<JoinRoom />} />
-      <Route path="/" element={<WaitingRoom />} />
+      <Route path="/waiting" element={<WaitingRoom />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

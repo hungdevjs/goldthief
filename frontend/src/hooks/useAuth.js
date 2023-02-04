@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import { faker } from "@faker-js/faker";
 import {
   signInWithEmailAndPassword,
   signInAnonymously,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
-import { auth } from "../configs/firebase.config";
+import { auth, firestore } from "../configs/firebase.config";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -16,8 +18,15 @@ const useAuth = () => {
     await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const loginAnonymous = async (email, password) => {
+  const loginAnonymous = async () => {
     await signInAnonymously(auth);
+
+    const newUser = {
+      username: faker.internet.userName(),
+      avatar: faker.image.avatar(),
+    };
+
+    await setDoc(doc(firestore, "users", auth.currentUser.uid), newUser);
   };
 
   const logout = async () => {
