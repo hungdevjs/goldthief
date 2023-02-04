@@ -1,21 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 
-import HomeRoute from "./HomeRoute";
-import LoginRoute from "./LoginRoute";
-import RoomRoute from "./RoomRoute";
-import PrepareRoute from "./PrepareRoute";
-import GameRoute from "./GameRoute";
+import useAuth from "../hooks/useAuth";
+import MainRoutes from "./MainRoutes";
+import AuthRoutes from "./AuthRoutes";
 
 const Navigation = () => {
-  return (
-    <Routes>
-      <Route path="/login/*" element={<LoginRoute />} />
-      <Route path="/rooms/*" element={<RoomRoute />} />
-      <Route path="/prepare/*" element={<PrepareRoute />} />
-      <Route path="/game/*" element={<GameRoute />} />
-      <Route path="*" element={<HomeRoute />} />
-    </Routes>
-  );
+  const { user, isInitialized } = useAuth();
+
+  if (!isInitialized) return null;
+
+  return user ? <MainRoutes /> : <AuthRoutes />;
 };
 
 export default Navigation;
