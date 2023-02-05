@@ -1,9 +1,11 @@
-const functions = require("firebase-functions");
+const admin = require('firebase-admin');
 
-// // Create and deploy your first functions
-// // https://firebase.google.com/docs/functions/get-started
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
+
+const { create } = require('./callables/game');
+const { onAuthCreate } = require('./callables/auth');
+
+exports.create = create;
+exports.onAuthCreate = onAuthCreate;

@@ -23,6 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "start-functions-locally": "firebase use goldthief-df9a4 && firebase emulators:start --only functions",
     "deploy-functions": "firebase use goldthief-df9a4 && firebase deploy --only functions",
     "deploy-web": "firebase use goldthief-df9a4 && yarn build && firebase deploy --only hosting",
     "deploy-all": "yarn deploy-functions && yarn deploy-web"
