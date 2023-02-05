@@ -2,12 +2,25 @@ import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 
 import Layout from "../../components/Layout";
+import useGame from "../../hooks/useGame"
 
 const CreateRoom = () => {
+
   const [password, setPassword] = useState("");
 
+  const {createGame, game} = useGame();
+
+  const create = async () => {
+    try {
+      await createGame(password) 
+      console.log(game)
+    } catch(err) {
+      console.log(err.message)
+    }
+  }
+
   return (
-    <Layout>
+    <Layout>  
       <Box
         display="flex"
         flexDirection="column"
@@ -54,6 +67,7 @@ const CreateRoom = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
+          onClick={() => create()}
         >
           Create
         </Button>

@@ -1,9 +1,14 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+
 import useResponsive from "../../hooks/useResponsive";
+import useGame from "../../hooks/useGame";
 
 const WaitingRoom = () => {
   const { isMobile } = useResponsive();
+  const {game} = useGame();
+
+  console.log(game)
 
   return (
     <Box
@@ -62,14 +67,14 @@ const WaitingRoom = () => {
               fontWeight="600"
               fontSize="24px"
             >
-              Name
+              Name: {game.username}
             </Typography>
             <Typography
               fontFamily="'Luckiest Guy', cursive"
               fontWeight="600"
               fontSize="24px"
             >
-              Room:{" "}
+              Room:{game.code}
             </Typography>
           </Grid>
           <Grid

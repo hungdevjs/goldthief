@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, loginAnonymous } = useAuth();
   console.log(user);
 
   return (
@@ -41,7 +41,7 @@ const Home = () => {
             borderRadius: "10px",
           }}
           onClick={() => {
-            user ? navigate("/rooms/join") : navigate("");
+            user ? navigate("/rooms/join") : loginAnonymous();
           }}
         >
           {user ? "Join" : "Play As guest"}
