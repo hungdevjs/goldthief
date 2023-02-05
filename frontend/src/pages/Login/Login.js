@@ -28,11 +28,21 @@ const Login = () => {
           label="Email"
           sx={{
             background: "rgba(31, 31, 31, 0.4)",
-            border: "2px solid #D68F24",
             fontFamily: "Montserrat",
             fontWeight: "700",
             borderRadius: "8px",
             input: { color: "white" },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                border: "2px solid #D68F24",
+              },
+              "&:hover fieldset": {
+                border: "2px solid #D68F24",
+              },
+              "&.Mui-focused fieldset": {
+                border: "2px solid #D68F24",
+              },
+            },
           }}
           InputLabelProps={{
             style: {
@@ -47,10 +57,20 @@ const Login = () => {
           label="Password"
           sx={{
             background: "rgba(31, 31, 31, 0.4)",
-            border: "2px solid #D68F24",
             fontFamily: "Montserrat",
             fontWeight: "700",
             borderRadius: "8px",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                border: "2px solid #D68F24",
+              },
+              "&:hover fieldset": {
+                border: "2px solid #D68F24",
+              },
+              "&.Mui-focused fieldset": {
+                border: "2px solid #D68F24",
+              },
+            },
           }}
           InputLabelProps={{
             style: {
