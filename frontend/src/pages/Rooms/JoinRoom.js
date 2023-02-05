@@ -53,6 +53,7 @@ const JoinRoom = () => {
             fontFamily: "Montserrat",
             fontWeight: "700",
             borderRadius: "8px",
+            input: { color: "white" },
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
                 border: "2px solid #D68F24",
