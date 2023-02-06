@@ -3,12 +3,14 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import CreateRoom from "../pages/Rooms/CreateRoom";
 import JoinRoom from "../pages/Rooms/JoinRoom";
 import WaitingRoom from "../pages/Rooms/WaitingRoom";
-import useGame from "../hooks/useGame";
+import useAuth from "../hooks/useAuth";
 
 const RoomRoute = () => {
-  const {game} = useGame()
-  
-  if (!game) return (
+  const {user} = useAuth()
+
+  console.log(user)
+
+return (
     <Routes>
       <Route path="/create" element={<CreateRoom />} />
       <Route path="/join" element={<JoinRoom />} />

@@ -35,13 +35,13 @@ const Layout = ({ children }) => {
         <Typography
           fontFamily="'Luckiest Guy', cursive"
           fontWeight="600"
-          fontSize="100px"
+          fontSize={isMobile ? "100px" : "140px"}
           align="center"
           lineHeight={isMobile ? "100px" : "auto"}
           sx={{
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            paddingTop: isMobile ? "16vh" : "8vh",
-            mb: 13,
+            paddingTop: isMobile ? "16vh" : "16vh",
+            mb:isMobile ? 13 : 16,
             color: "rgba(255, 226, 89)",
           }}
         >

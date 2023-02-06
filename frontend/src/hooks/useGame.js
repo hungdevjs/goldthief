@@ -7,8 +7,6 @@ const useGame = () => {
 
   const createGame = async (data) => {
     await create(data);
-
-    setGame(gameDoc);
   };
 
   return { createGame, game };
