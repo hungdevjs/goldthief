@@ -1,11 +1,14 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { useSnackbar } from "notistack";
 import { Navigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,7 +19,7 @@ const Login = () => {
       console.log(email, password);
       await login(email, password);
     } catch (err) {
-      console.log(err.message);
+      enqueueSnackbar(err.message, { variant: "error" });
     }
   };
 

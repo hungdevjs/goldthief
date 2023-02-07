@@ -7,7 +7,6 @@ import useAuth from "../../hooks/useAuth";
 const Home = () => {
   const navigate = useNavigate();
   const { user, loginAnonymous } = useAuth();
-  console.log(user);
 
   return (
     <Layout>
