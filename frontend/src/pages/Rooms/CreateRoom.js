@@ -1,26 +1,32 @@
-import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { Box, Button, TextField } from "@mui/material";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
-import useGame from "../../hooks/useGame"
+import useAppContext from "../../hooks/useAppContext";
 
 const CreateRoom = () => {
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
+
+  const { gameState } = useAppContext();
+  const { createGame, game } = gameState;
 
   const [password, setPassword] = useState("");
 
-  const {createGame, game} = useGame();
-
   const create = async () => {
     try {
-      await createGame(password) 
-      console.log(game)
-    } catch(err) {
-      console.log(err.message)
+      const gameId = await createGame({ password });
+
+      navigate(`/rooms/waiting/${gameId}`);
+    } catch (err) {
+      enqueueSnackbar(err.message, { variant: "error" });
     }
-  }
+  };
 
   return (
-    <Layout>  
+    <Layout>
       <Box
         display="flex"
         flexDirection="column"
@@ -67,7 +73,7 @@ const CreateRoom = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-          onClick={() => create()}
+          onClick={create}
         >
           Create
         </Button>

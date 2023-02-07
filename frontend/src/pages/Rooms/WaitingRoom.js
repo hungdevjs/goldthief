@@ -2,13 +2,12 @@ import { Box, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 
 import useResponsive from "../../hooks/useResponsive";
-import useGame from "../../hooks/useGame";
+import useAppContext from "../../hooks/useAppContext";
 
 const WaitingRoom = () => {
   const { isMobile } = useResponsive();
-  const {game} = useGame();
-
-  console.log(game)
+  const { gameState } = useAppContext();
+  const { game } = gameState;
 
   return (
     <Box
