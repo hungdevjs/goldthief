@@ -2,6 +2,9 @@ import { Box, Grid, Typography, Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import useResponsive from "../../hooks/useResponsive";
 import useGame from "../../hooks/useGame";
@@ -72,20 +75,20 @@ const Profile = () => {
           justifyContent="space-between"
           maxWidth={isMobile ? "75vw" : "30vw"}
           maxHeight={isMobile ? "52h" : "40vh"}
-          sx={{ background: "rgba(255, 253, 253)", px: 3, py: 2, borderRadius: 6 }}
+          sx={{ background: "rgba(255, 253, 253)", px: 3, py: 2, borderRadius: 4 }}
         >
             <Grid xs={12} display="flex" justifyContent="space-between" item width="100%" sx={{pt: 1, pb: 3}}>
-                <Button variant="contained" size="small" onClick={() => navigate("/home")}>Back</Button>
-                <Button variant="contained" size="small" color="error" onClick={() => signOut()}>Sign out</Button>
+                <Button variant="link" size="small" onClick={() => navigate("/home")}>Back</Button>
+                <LogoutIcon sx={{cursor: "pointer"}} onClick={() => signOut()}/>
             </Grid>
-            <Grid xs={isMobile ? 12 : 6} display="flex" flexDirection={isMobile ? "row" : "column"} sx={{gap: isMobile ? 4 : 1, mb: 2}} item>
+            <Grid xs={isMobile ? 12 : 5} display="flex" flexDirection={isMobile ? "row" : "column"}  sx={{gap: isMobile ? 4 : 2, mb: 2}} item>
                 <Box component="img" sx={{width: isMobile ? 120 : 150, height: isMobile ? 120 : 150, borderRadius: 50}} src="https://www.w3schools.com/css/ocean.jpg"></Box>
-                <Box display="flex" flexDirection={isMobile ? "column" :"row"} justifyContent={isMobile ? "center" : "flex-start"} sx={{gap: 1}}>
-                    <Button variant="contained" size="small" color="success">Edit</Button>
-                    <Button variant="contained" size="small" color="error">Delete</Button>
+                <Box display="flex" flexDirection={isMobile ? "column" :"row"} justifyContent={isMobile ? "center" : "flex-start"} sx={{gap: 1, ml: isMobile ? 0 : 5}}>
+                    <EditIcon sx={{cursor: "pointer"}}/>
+                    <DeleteIcon sx={{cursor: "pointer"}}/>
                 </Box>
             </Grid>
-            <Grid xs={isMobile ? 12 : 6} display="flex" flexDirection="column"  sx={{gap: 4, p: 1}} item>
+            <Grid xs={isMobile ? 12 : 7} display="flex" flexDirection="column"  sx={{gap: 3, p: 1}} item>
             <Box display="flex" sx={{gap: 5}}>
                 <Typography 
               fontWeight="600">Win:</Typography>
@@ -95,9 +98,9 @@ const Profile = () => {
               fontWeight="600">Total:</Typography>
             </Box>
             <TextField
-          size="small"
-          label="Username"
-          sx={{
+                size="small"
+                label="Username"
+                sx={{
             // background: "rgba(31, 31, 31, 0.4)",
             fontFamily: "Montserrat",
             fontWeight: "700",
@@ -122,7 +125,7 @@ const Profile = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
             </Grid>
-            <Button variant="contained" sx={{width: "100%"}}>Save</Button>
+            <Button variant="contained" sx={{width: "100%", mt: isMobile ? 2 : 3}}>Save</Button>
         </Grid>
 
       </Box>
