@@ -1,24 +1,27 @@
-import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { Box, Button, TextField } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuth();
+  const { signUp } = useAuth();
 
-  const signUp = async () => {
+  const handleSignUp = async () => {
     try {
-      await login(email, password);
-      navigate("/login")
+      await signUp(email, password);
+
+      navigate("/login");
     } catch (err) {
-      console.log(err.message);
+      enqueueSnackbar(err.message, { variant: "error" });
     }
   };
 
@@ -93,7 +96,7 @@ const SignUp = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-          onClick={() => signUp()}
+          onClick={handleSignUp}
         >
           SignUp
         </Button>

@@ -1,9 +1,9 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
-import environments from '../utils/environments';
+import environments from "../utils/environments";
 
 const firebaseConfig = {
   apiKey: environments.FIREBASE_API,
@@ -23,4 +23,4 @@ export const functions = getFunctions(app);
 
 export const auth = getAuth(app);
 
-// connectFunctionsEmulator(functions, 'localhost', 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
