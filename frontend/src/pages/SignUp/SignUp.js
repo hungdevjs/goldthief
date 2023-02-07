@@ -18,7 +18,6 @@ const SignUp = () => {
   const handleSignUp = async () => {
     try {
       await signUp(email, password);
-
       navigate("/login");
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });

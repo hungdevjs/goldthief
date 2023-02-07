@@ -8,16 +8,34 @@ const Home = () => {
   const navigate = useNavigate();
   const { user, loginAnonymous } = useAuth();
 
+  console.log(user)
+
   return (
     <Layout>
       <Box display="flex" flexDirection="column" spacing={3}>
+      <Button
+          sx={{
+            background: "linear-gradient(90deg, #FFE259 15.1%, #FFA751 85.42%)",
+            py: 1.5,
+            px: 11,
+            color: "#2E2E2E",
+            fontFamily: "Luckiest Guy",
+            fontWeight: "600",
+            borderRadius: "10px",
+            display: user ? "flex" : "none",
+          }}
+          onClick={() => navigate("/profile/")}
+        >
+          Profile
+        </Button>
+
         <Button
           sx={{
             background: "linear-gradient(90deg, #FFE259 15.1%, #FFA751 85.42%)",
             py: 1.5,
             px: 11,
             mb: 1,
-            mt: 2,
+            mt: user ? 1 : 2,
             color: "#2E2E2E",
             fontFamily: "Luckiest Guy",
             fontWeight: "600",
@@ -29,6 +47,7 @@ const Home = () => {
         >
           {user ? "Create Room" : "Login"}
         </Button>
+
         <Button
           sx={{
             background: "linear-gradient(90deg, #FFE259 15.1%, #FFA751 85.42%)",
@@ -45,6 +64,7 @@ const Home = () => {
         >
           Sign Up
         </Button>
+
         <Button
           sx={{
             background: "linear-gradient(90deg, #FFE259 15.1%, #FFA751 85.42%)",
