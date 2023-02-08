@@ -1,24 +1,33 @@
 import { Box, Grid, Typography, Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
-import { useState } from "react";
+import { useState, useRef, useId } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from '@mui/icons-material/Edit'; 
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import useResponsive from "../../hooks/useResponsive";
 import useGame from "../../hooks/useGame";
 import useAuth from "../../hooks/useAuth";
+import useStorage from "../../hooks/useStorage";
+import { async } from "@firebase/util";
 
 const Profile = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("")
+    const [data, setData] = useState(null);
+    const [files, setFiles] = useState([]);
+    const labelRef = useRef();
+    const inputId = useId();
 
   const { isMobile } = useResponsive();
   const { game } = useGame();
   const { logout } = useAuth()
+  const { setFile, handleUpLoad, handleChange, urlImage, setUrlImage } = useStorage()
 
-    const signOut = async () => {
+  console.log(urlImage)
+
+    const signOut = async ({ images, setImages, files, setFiles }) => {
         try {
             await logout();
             navigate("/home")
@@ -26,6 +35,7 @@ const Profile = () => {
             console.log(err.message)
         }
     }
+
 
   return (
     <Box
@@ -82,10 +92,25 @@ const Profile = () => {
                 <LogoutIcon sx={{cursor: "pointer"}} onClick={() => signOut()}/>
             </Grid>
             <Grid xs={isMobile ? 12 : 5} display="flex" flexDirection={isMobile ? "row" : "column"}  sx={{gap: isMobile ? 4 : 2, mb: 2}} item>
-                <Box component="img" sx={{width: isMobile ? 120 : 150, height: isMobile ? 120 : 150, borderRadius: 50}} src="https://www.w3schools.com/css/ocean.jpg"></Box>
+                <Box component="img" sx={{width: isMobile ? 120 : 150, height: isMobile ? 120 : 150, borderRadius: 50}} src={urlImage}></Box>
                 <Box display="flex" flexDirection={isMobile ? "column" :"row"} justifyContent={isMobile ? "center" : "flex-start"} sx={{gap: 1, ml: isMobile ? 0 : 5}}>
-                    <EditIcon sx={{cursor: "pointer"}}/>
-                    <DeleteIcon sx={{cursor: "pointer"}}/>
+                    <Box>
+                    <label htmlFor={inputId} ref={labelRef} className="d-none" />
+                    <input
+                        id={inputId}
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleChange}
+                        style={{display: "none"}}
+                    />
+                        <EditIcon sx={{cursor: "pointer"}} type="file" onClick={() => labelRef.current?.click()} />
+                    </Box>
+
+                    <DeleteIcon sx={{cursor: "pointer"}} onClick={() => {
+                        setFile("")
+                        setUrlImage("")
+                    }}/>
                 </Box>
             </Grid>
             <Grid xs={isMobile ? 12 : 7} display="flex" flexDirection="column"  sx={{gap: 3, p: 1}} item>
@@ -96,7 +121,7 @@ const Profile = () => {
               fontWeight="600">Lose:</Typography>
                 <Typography 
               fontWeight="600">Total:</Typography>
-            </Box>
+            </Box> 
             <TextField
                 size="small"
                 label="Username"
@@ -125,7 +150,7 @@ const Profile = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
             </Grid>
-            <Button variant="contained" sx={{width: "100%", mt: isMobile ? 2 : 3}}>Save</Button>
+            <Button variant="contained" sx={{width: "100%", mt: isMobile ? 2 : 3}} onClick={() => handleUpLoad()}>Save</Button>
         </Grid>
 
       </Box>
