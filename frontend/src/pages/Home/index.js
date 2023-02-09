@@ -8,12 +8,10 @@ const Home = () => {
   const navigate = useNavigate();
   const { user, loginAnonymous } = useAuth();
 
-  console.log(user)
-
   return (
     <Layout>
       <Box display="flex" flexDirection="column" spacing={3}>
-      <Button
+        <Button
           sx={{
             background: "linear-gradient(90deg, #FFE259 15.1%, #FFA751 85.42%)",
             py: 1.5,

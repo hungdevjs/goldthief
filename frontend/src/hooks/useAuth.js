@@ -6,8 +6,9 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
-import { auth } from "../configs/firebase.config";
+import { auth, firestore } from "../configs/firebase.config";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -30,9 +31,13 @@ const useAuth = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        setUser(firebaseUser);
+        const userDoc = await getDoc(doc(firestore, "users", firebaseUser.uid));
+
+        const newUser = { ...userDoc.data(), id: firebaseUser.uid };
+
+        setUser(newUser);
       } else {
         setUser(null);
       }

@@ -1,11 +1,31 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import useAppContext from "../../hooks/useAppContext";
 
 const JoinRoom = () => {
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
+
+  const { gameState } = useAppContext();
+  const { joinGame } = gameState;
+
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
+
+  const join = async () => {
+    try {
+      const gameId = await joinGame({ code, password });
+
+      navigate(`/prepare/${gameId}`);
+    } catch (err) {
+      console.log(err.message);
+      enqueueSnackbar(err.message, { variant: "error" });
+    }
+  };
 
   return (
     <Layout>
@@ -84,6 +104,7 @@ const JoinRoom = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
+          onClick={join}
         >
           join
         </Button>

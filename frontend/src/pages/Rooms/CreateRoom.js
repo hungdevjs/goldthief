@@ -11,7 +11,7 @@ const CreateRoom = () => {
   const navigate = useNavigate();
 
   const { gameState } = useAppContext();
-  const { createGame, game } = gameState;
+  const { createGame } = gameState;
 
   const [password, setPassword] = useState("");
 

@@ -1,13 +1,18 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 import useResponsive from "../../hooks/useResponsive";
 import useAppContext from "../../hooks/useAppContext";
 
 const WaitingRoom = () => {
+  const navigate = useNavigate();
   const { isMobile } = useResponsive();
+
   const { gameState } = useAppContext();
   const { game } = gameState;
+
+  if (game.joiner) navigate(`/prepare/${game.id}`);
 
   return (
     <Box

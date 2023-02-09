@@ -5,7 +5,7 @@ import Prepare from "../pages/Prepare/Prepare";
 const PrepareRoute = () => {
   return (
     <Routes>
-      <Route path="/" element={<Prepare />} />
+      <Route path="/:id" element={<Prepare />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
