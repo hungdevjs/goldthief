@@ -1,6 +1,6 @@
 import { Box, Grid, Typography, Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
-import { useState, useRef, useId } from "react";
+import { useState, useRef, useId, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
@@ -22,7 +22,7 @@ const Profile = () => {
 
   const { isMobile } = useResponsive();
   const { game } = useGame();
-  const { logout } = useAuth();
+  const { logout, user, updateProfile } = useAuth();
   const { setFile, handleUpLoad, handleChange, urlImage, setUrlImage } =
     useStorage();
 
@@ -34,6 +34,24 @@ const Profile = () => {
       console.log(err.message);
     }
   };
+
+  const submit = async () => {
+    try {
+      handleUpLoad()
+      console.log(urlImage)
+    } catch(err) {
+      console.log(err.message)
+    }
+  }
+
+
+  useEffect(() => {
+    if(user) setUsername(user.username)
+  }, [user])
+
+  useEffect(() => {
+    if(user) updateProfile(user.id, username, urlImage)
+  }, [urlImage])
 
   return (
     <Box
@@ -170,6 +188,7 @@ const Profile = () => {
             <TextField
               size="small"
               label="Username"
+              value={username}
               sx={{
                 // background: "rgba(31, 31, 31, 0.4)",
                 fontFamily: "Montserrat",
@@ -198,7 +217,7 @@ const Profile = () => {
           <Button
             variant="contained"
             sx={{ width: "100%", mt: isMobile ? 2 : 3 }}
-            onClick={() => handleUpLoad()}
+            onClick={() => submit()}
           >
             Save
           </Button>

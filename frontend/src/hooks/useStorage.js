@@ -1,21 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storage } from "../configs/firebase.config";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { setLogLevel } from "firebase/app";
+import useAuth from "./useAuth";
 
 const useStorage = () => {
+    const { user } = useAuth()
+
     const [file, setFile] = useState("");
     const [percent, setPercent] = useState(0);
     const [urlImage, setUrlImage] = useState("")
+
+    useEffect(() => {
+        if(user) setUrlImage(user.avatar)
+    }, [user])
     
     const handleChange = (event) => {
         setFile(event.target.files[0]);
     }
 
     const handleUpLoad = () => {
-        if (!file) {
-            alert("Please choose a file first!")
-        }
-        
+
         const storageRef = ref(storage,`/files/${file.name}`)
         const uploadTask = uploadBytesResumable(storageRef, file);
             
@@ -32,7 +37,6 @@ const useStorage = () => {
             () => {
                 // download url
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    console.log(url);
                     setUrlImage(url)
                 });
             }); 

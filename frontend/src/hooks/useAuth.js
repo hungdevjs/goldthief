@@ -6,9 +6,19 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { auth, firestore } from "../configs/firebase.config";
+import { async } from "@firebase/util";
+
+const updateProfile = (id, username, avatar) => {
+  const docRef = doc(firestore, "users", id)
+  console.log(id, username, avatar)
+  updateDoc(docRef, {
+    username, 
+    avatar
+  })
+}
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -46,7 +56,7 @@ const useAuth = () => {
     return () => unsubscribe && unsubscribe();
   }, []);
 
-  return { signUp, login, loginAnonymous, logout, user, isInitialized };
+  return { signUp, login, loginAnonymous, logout, user, isInitialized, updateProfile};
 };
 
 export default useAuth;
