@@ -8,8 +8,6 @@ import useAuth from "./useAuth";
 const useGame = () => {
   const { user } = useAuth();
 
-  console.log(user);
-
   const [game, setGame] = useState(null);
 
   const handleGameData = async () => {
@@ -32,25 +30,21 @@ const useGame = () => {
     const gameDoc = await create(data);
 
     setGame(gameDoc.data);
-
-    await unsubcribe(gameDoc.data.id);
-
-    return gameDoc.data.id;
   };
 
   const joinGame = async (data) => {
     const gameDoc = await join(data);
 
     setGame(gameDoc.data);
-
-    await unsubcribe(gameDoc.data.id);
-
-    return gameDoc.data.id;
   };
 
   useEffect(() => {
     handleGameData();
   }, [user]);
+
+  useEffect(() => {
+    if (game?.id) unsubcribe(game.id);
+  }, [game]);
 
   return { createGame, joinGame, game };
 };

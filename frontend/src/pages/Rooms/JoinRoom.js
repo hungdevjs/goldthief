@@ -11,16 +11,16 @@ const JoinRoom = () => {
   const navigate = useNavigate();
 
   const { gameState } = useAppContext();
-  const { joinGame } = gameState;
+  const { joinGame, game } = gameState;
 
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
 
   const join = async () => {
     try {
-      const gameId = await joinGame({ code, password });
+      await joinGame({ code, password });
 
-      navigate(`/prepare/${gameId}`);
+      navigate(`/prepare/${game?.id}`);
     } catch (err) {
       console.log(err.message);
       enqueueSnackbar(err.message, { variant: "error" });

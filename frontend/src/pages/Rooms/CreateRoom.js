@@ -11,15 +11,15 @@ const CreateRoom = () => {
   const navigate = useNavigate();
 
   const { gameState } = useAppContext();
-  const { createGame } = gameState;
+  const { createGame, game } = gameState;
 
   const [password, setPassword] = useState("");
 
   const create = async () => {
     try {
-      const gameId = await createGame({ password });
+      await createGame({ password });
 
-      navigate(`/rooms/waiting/${gameId}`);
+      navigate(`/rooms/waiting/${game?.id}`);
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });
     }

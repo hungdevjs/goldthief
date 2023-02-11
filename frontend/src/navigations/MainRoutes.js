@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import HomeRoute from "./HomeRoute";
-import RoomRoute from "./RoomRoute";
 import PrepareRoute from "./PrepareRoute";
 import GameRoute from "./GameRoute";
 import ProfileRoute from "./ProfileRoute";
@@ -20,8 +19,6 @@ const MainRoutes = () => {
 
   useEffect(() => {
     setGameStatus(game?.status);
-
-    console.log(game?.status);
 
     setIsInitialized(true);
   }, [game]);
