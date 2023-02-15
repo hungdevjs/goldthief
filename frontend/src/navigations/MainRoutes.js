@@ -9,6 +9,7 @@ import CreateRoom from "../pages/Rooms/CreateRoom";
 import JoinRoom from "../pages/Rooms/JoinRoom";
 import WaitingRoom from "../pages/Rooms/WaitingRoom";
 import useAppContext from "../hooks/useAppContext";
+import GuideRoute from "./GuideRoute"
 
 const MainRoutes = () => {
   const { gameState } = useAppContext();
@@ -50,7 +51,8 @@ const MainRoutes = () => {
           <Route path="/profile/*" element={<ProfileRoute />} />
           <Route path="rooms/create" element={<CreateRoom />} />
           <Route path="rooms/join" element={<JoinRoom />} />
-          <Route path="*" element={<HomeRoute />} />
+          <Route path="/guide" element={<GuideRoute />} />
+          <Route path="*" element={<HomeRoute />} /> 
         </>
       )}
     </Routes>

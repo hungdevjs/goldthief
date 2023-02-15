@@ -68,6 +68,7 @@ const Home = () => {
             background: "linear-gradient(90deg, #FFE259 15.1%, #FFA751 85.42%)",
             py: 1.5,
             px: 11,
+            mb: 1,
             color: "#2E2E2E",
             fontFamily: "Luckiest Guy",
             fontWeight: "600",
@@ -78,6 +79,22 @@ const Home = () => {
           }}
         >
           {user ? "Join" : "Play As guest"}
+        </Button>
+
+        <Button
+          sx={{
+            background: "linear-gradient(90deg, #FFE259 15.1%, #FFA751 85.42%)",
+            py: 1.5,
+            px: 11,
+
+            color: "#2E2E2E",
+            fontFamily: "Luckiest Guy",
+            fontWeight: "600",
+            borderRadius: "10px",
+          }}
+          onClick={() => navigate("/guide")}
+        >
+          Guide
         </Button>
       </Box>
     </Layout>
