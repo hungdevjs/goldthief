@@ -55,8 +55,8 @@ const Guide = () => {
         display="flex"
         justifyContent="space-between"
         width="75vw"
-        height="75vh"
-        sx={{ background: "rgba(255, 253, 253, 0.5)", px: 4, py: 4 }}
+        height= { isMobile ? "70vh" : "75vh" }
+        sx={{ background: "rgba(255, 253, 253, 0.5)", px: 4, py: 4, borderRadius: 6 }}
       >
           <Typography
             fontFamily="'Luckiest Guy', cursive"

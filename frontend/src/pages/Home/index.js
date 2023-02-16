@@ -6,7 +6,8 @@ import useAppContext from "../../hooks/useAppContext";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { authState } = useAppContext();
+  const { authState, loadingState } = useAppContext();
+  const { setIsLoading } = loadingState;
 
   const { user, loginAnonymous } = authState;
 
@@ -24,7 +25,15 @@ const Home = () => {
             borderRadius: "10px",
             display: user ? "flex" : "none",
           }}
-          onClick={() => navigate("/profile/")}
+          onClick={() => {
+            setIsLoading(true)
+            try {
+              navigate("/profile/")
+            } catch(err) {
+              console.log(err.message)
+            }
+            setIsLoading(false)
+          }}
         >
           Profile
         </Button>
@@ -41,9 +50,15 @@ const Home = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-          onClick={() => {
-            user ? navigate("/create") : navigate("/login");
-          }}
+            onClick={() => {
+              setIsLoading(true)
+              try {
+                user ? navigate("/create") : navigate("/login");
+              } catch(err) {
+                console.log(err.message)
+              }
+              setIsLoading(false)
+            }}
         >
           {user ? "Create Room" : "Login"}
         </Button>
@@ -60,7 +75,15 @@ const Home = () => {
             borderRadius: "10px",
             display: user ? "none" : "flex",
           }}
-          onClick={() => navigate("/signup")}
+          onClick={() => {
+            setIsLoading(true)
+            try {
+              navigate("/signup")
+            } catch(err) {
+              console.log(err.message)
+            }
+            setIsLoading(false)
+          }}
         >
           Sign Up
         </Button>
@@ -77,7 +100,13 @@ const Home = () => {
             borderRadius: "10px",
           }}
           onClick={() => {
-            user ? navigate("/join") : loginAnonymous();
+            setIsLoading(true)
+            try {
+              user ? navigate("/join") : loginAnonymous();
+            } catch(err) {
+              console.log(err.message)
+            }
+            setIsLoading(false)
           }}
         >
           {user ? "Join" : "Play As guest"}
@@ -94,7 +123,15 @@ const Home = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-          onClick={() => navigate("/guide")}
+          onClick={() => {
+            setIsLoading(true)
+            try {
+              navigate("/guide")  
+            } catch(err) {
+              console.log(err.message)
+            }
+            setIsLoading(false)
+          }}
         >
           Guide
         </Button>

@@ -17,9 +17,11 @@ const useStorage = () => {
     
     const handleChange = (event) => {
         setFile(event.target.files[0]);
+        setUrlImage(URL.createObjectURL(event.target.files[0]))
     }
 
     const handleUpLoad = () => {
+        if (!file) return 
 
         const storageRef = ref(storage,`/files/${file.name}`)
         const uploadTask = uploadBytesResumable(storageRef, file);

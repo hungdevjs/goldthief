@@ -10,48 +10,56 @@ import useResponsive from "../../hooks/useResponsive";
 import useGame from "../../hooks/useGame";
 import useAuth from "../../hooks/useAuth";
 import useStorage from "../../hooks/useStorage";
-import { async } from "@firebase/util";
+import useAppContext from "../../hooks/useAppContext";
 
 const Profile = () => {
   const navigate = useNavigate();
+
+  const { loadingState } = useAppContext();
+  const { setIsLoading } = loadingState;
   const [username, setUsername] = useState("");
   const [data, setData] = useState(null);
   const [files, setFiles] = useState([]);
   const labelRef = useRef();
   const inputId = useId();
 
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
   const { game } = useGame();
   const { logout, user, updateProfile } = useAuth();
   const { setFile, handleUpLoad, handleChange, urlImage, setUrlImage } =
     useStorage();
 
   const signOut = async () => {
+    setIsLoading(true)
     try {
       await logout();
       navigate("/home");
     } catch (err) {
       console.log(err.message);
     }
+    setIsLoading(false)
   };
 
-  const submit = async () => {
+  const submit = () => {
+    setIsLoading(true)
     try {
       handleUpLoad()
       console.log(urlImage)
+      updateProfile(user.id, username, urlImage)
     } catch(err) {
       console.log(err.message)
     }
+    setIsLoading(false)
   }
 
 
   useEffect(() => {
     if(user) setUsername(user.username)
+    if(user) setUrlImage(user.avatar)
   }, [user])
 
-  useEffect(() => {
-    if(user) updateProfile(user.id, username, urlImage)
-  }, [urlImage])
+  console.log(urlImage)
+
 
   return (
     <Box
@@ -99,8 +107,7 @@ const Profile = () => {
         <Grid
           container
           justifyContent="space-between"
-          maxWidth={isMobile ? "75vw" : "30vw"}
-          maxHeight={isMobile ? "52h" : "40vh"}
+          maxWidth= {isMobile ? "70vw" : isTablet ? "60vw" : "40vw"}
           sx={{
             background: "rgba(255, 253, 253)",
             px: 3,
@@ -113,7 +120,6 @@ const Profile = () => {
             display="flex"
             justifyContent="space-between"
             item
-            width="100%"
             sx={{ pt: 1, pb: 3 }}
           >
             <Button
@@ -167,8 +173,7 @@ const Profile = () => {
               <DeleteIcon
                 sx={{ cursor: "pointer" }}
                 onClick={() => {
-                  setFile("");
-                  setUrlImage("");
+                  setUrlImage("")
                 }}
               />
             </Box>
