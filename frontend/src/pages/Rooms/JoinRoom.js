@@ -8,23 +8,26 @@ import useAppContext from "../../hooks/useAppContext";
 
 const JoinRoom = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const { gameState, loadingState } = useAppContext();
   const navigate = useNavigate();
 
-  const { gameState } = useAppContext();
+  const { setIsLoading } = loadingState;
   const { joinGame, game } = gameState;
 
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
 
   const join = async () => {
+    setIsLoading(true);
     try {
       await joinGame({ code, password });
 
-      navigate(`/prepare/${game?.id}`);
+      navigate(`/preparing/${game?.id}`);
     } catch (err) {
       console.log(err.message);
       enqueueSnackbar(err.message, { variant: "error" });
     }
+    setIsLoading(false);
   };
 
   return (

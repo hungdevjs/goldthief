@@ -9,11 +9,11 @@ import CreateRoom from "../pages/Rooms/CreateRoom";
 import JoinRoom from "../pages/Rooms/JoinRoom";
 import WaitingRoom from "../pages/Rooms/WaitingRoom";
 import useAppContext from "../hooks/useAppContext";
-import GuideRoute from "./GuideRoute"
+import GuideRoute from "./GuideRoute";
 
 const MainRoutes = () => {
   const { gameState } = useAppContext();
-  const { game } = gameState;
+  const { game, prepare } = gameState;
 
   const [isInitialized, setIsInitialized] = useState(false);
   const [gameStatus, setGameStatus] = useState(null);
@@ -24,22 +24,22 @@ const MainRoutes = () => {
     setIsInitialized(true);
   }, [game]);
 
-  if (!isInitialized) return false;
+  if (!isInitialized) return null;
 
   return (
     <Routes>
       {gameStatus === "waiting" ? (
         <>
-          <Route path="/rooms/waiting/*" element={<WaitingRoom />} />
-          <Route
-            path="*"
-            element={<Navigate to={`/rooms/waiting/${game.id}`} />}
-          />
+          <Route path="/waiting/*" element={<WaitingRoom />} />
+          <Route path="*" element={<Navigate to={`/waiting/${game.id}`} />} />
         </>
       ) : gameStatus === "preparing" ? (
         <>
-          <Route path="/prepare/*" element={<PrepareRoute />} />
-          <Route path="*" element={<Navigate to={`/prepare/${game.id}`} />} />
+          <Route
+            path="/preparing/*"
+            element={<PrepareRoute prepare={prepare} />}
+          />
+          <Route path="*" element={<Navigate to={`/preparing/${game.id}`} />} />
         </>
       ) : gameStatus === "in progress" ? (
         <>
@@ -52,7 +52,7 @@ const MainRoutes = () => {
           <Route path="rooms/create" element={<CreateRoom />} />
           <Route path="rooms/join" element={<JoinRoom />} />
           <Route path="/guide" element={<GuideRoute />} />
-          <Route path="*" element={<HomeRoute />} /> 
+          <Route path="*" element={<HomeRoute />} />
         </>
       )}
     </Routes>

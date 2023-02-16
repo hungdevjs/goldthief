@@ -1,5 +1,15 @@
+import useAppContext from "../../hooks/useAppContext";
+
 const Game = () => {
-  return <div>Game</div>;
+  const { authState } = useAppContext();
+  const { logout } = authState;
+
+  return (
+    <div>
+      <button onClick={() => logout()}>Logout</button>
+      Game
+    </div>
+  );
 };
 
 export default Game;

@@ -2,11 +2,13 @@ import { Box, Button } from "@mui/material";
 
 import Layout from "../../components/Layout";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAppContext from "../../hooks/useAppContext";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { user, loginAnonymous } = useAuth();
+  const { authState } = useAppContext();
+
+  const { user, loginAnonymous } = authState;
 
   return (
     <Layout>
@@ -40,7 +42,7 @@ const Home = () => {
             borderRadius: "10px",
           }}
           onClick={() => {
-            user ? navigate("/rooms/create") : navigate("/login");
+            user ? navigate("/create") : navigate("/login");
           }}
         >
           {user ? "Create Room" : "Login"}
@@ -75,7 +77,7 @@ const Home = () => {
             borderRadius: "10px",
           }}
           onClick={() => {
-            user ? navigate("/rooms/join") : loginAnonymous();
+            user ? navigate("/join") : loginAnonymous();
           }}
         >
           {user ? "Join" : "Play As guest"}

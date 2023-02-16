@@ -4,23 +4,26 @@ import { useSnackbar } from "notistack";
 import { Navigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
-import useAuth from "../../hooks/useAuth";
+import useAppContext from "../../hooks/useAppContext";
 
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const { loadingState, authState } = useAppContext();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuth();
+  const { setIsLoading } = loadingState;
+  const { login } = authState;
 
   const signIn = async () => {
+    setIsLoading(true);
     try {
-      console.log(email, password);
       await login(email, password);
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });
     }
+    setIsLoading(false);
   };
 
   return (

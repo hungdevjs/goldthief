@@ -8,21 +8,24 @@ import useAppContext from "../../hooks/useAppContext";
 
 const CreateRoom = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const { gameState, loadingState } = useAppContext();
   const navigate = useNavigate();
 
-  const { gameState } = useAppContext();
   const { createGame, game } = gameState;
+  const { setIsLoading } = loadingState;
 
   const [password, setPassword] = useState("");
 
   const create = async () => {
+    setIsLoading(true);
     try {
       await createGame({ password });
 
-      navigate(`/rooms/waiting/${game?.id}`);
+      navigate(`/waiting/${game?.id}`);
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });
     }
+    setIsLoading(false);
   };
 
   return (
