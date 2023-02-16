@@ -49,8 +49,8 @@ const MainRoutes = () => {
       ) : (
         <>
           <Route path="/profile/*" element={<ProfileRoute />} />
-          <Route path="rooms/create" element={<CreateRoom />} />
-          <Route path="rooms/join" element={<JoinRoom />} />
+          <Route path="/create" element={<CreateRoom />} />
+          <Route path="/join" element={<JoinRoom />} />
           <Route path="/guide" element={<GuideRoute />} />
           <Route path="*" element={<HomeRoute />} />
         </>
