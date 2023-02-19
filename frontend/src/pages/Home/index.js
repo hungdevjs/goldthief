@@ -3,13 +3,26 @@ import { Box, Button } from "@mui/material";
 import Layout from "../../components/Layout";
 import { useNavigate } from "react-router-dom";
 import useAppContext from "../../hooks/useAppContext";
+import { async } from "@firebase/util";
 
 const Home = () => {
   const navigate = useNavigate();
   const { authState, loadingState } = useAppContext();
-  const { setIsLoading } = loadingState;
+  const { setIsLoading, isLoading } = loadingState;
 
   const { user, loginAnonymous } = authState;
+
+  const handleClickAnnoy = async () => {
+    setIsLoading(true);
+    console.log(isLoading)
+    console.log(setIsLoading)
+    try {
+      await user ? navigate("/join") : loginAnonymous();
+    } catch(err) {
+      console.log(err.message)
+    }
+    // setIsLoading(false)
+  }
 
   return (
     <Layout>
@@ -25,7 +38,7 @@ const Home = () => {
             borderRadius: "10px",
             display: user ? "flex" : "none",
           }}
-          onClick={() => {
+          onClick={async () => {
             setIsLoading(true)
             try {
               navigate("/profile/")
@@ -50,7 +63,7 @@ const Home = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-            onClick={() => {
+            onClick={async () => {
               setIsLoading(true)
               try {
                 user ? navigate("/create") : navigate("/login");
@@ -75,7 +88,7 @@ const Home = () => {
             borderRadius: "10px",
             display: user ? "none" : "flex",
           }}
-          onClick={() => {
+          onClick={async () => {
             setIsLoading(true)
             try {
               navigate("/signup")
@@ -99,10 +112,12 @@ const Home = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-          onClick={() => {
-            setIsLoading(true)
+          onClick={async () => {
+            setIsLoading(true);
+            console.log(isLoading)
+            console.log(setIsLoading)
             try {
-              user ? navigate("/join") : loginAnonymous();
+              await user ? navigate("/join") : loginAnonymous();
             } catch(err) {
               console.log(err.message)
             }
@@ -123,7 +138,7 @@ const Home = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-          onClick={() => {
+          onClick={async () => {
             setIsLoading(true)
             try {
               navigate("/guide")  

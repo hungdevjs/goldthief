@@ -11,12 +11,13 @@ import useGame from "../../hooks/useGame";
 import useAuth from "../../hooks/useAuth";
 import useStorage from "../../hooks/useStorage";
 import useAppContext from "../../hooks/useAppContext";
+import { async } from "@firebase/util";
 
 const Profile = () => {
   const navigate = useNavigate();
 
   const { loadingState } = useAppContext();
-  const { setIsLoading } = loadingState;
+  const { setIsLoading, isLoading } = loadingState;
   const [username, setUsername] = useState("");
   const [data, setData] = useState(null);
   const [files, setFiles] = useState([]);
@@ -49,6 +50,16 @@ const Profile = () => {
     } catch(err) {
       console.log(err.message)
     }
+    setIsLoading(false)
+  }
+
+  const back = () => {
+    setIsLoading(true);
+    try {
+      navigate("/home")
+    } catch(err) {
+      console.log(err.meesage)
+    };
     setIsLoading(false)
   }
 
@@ -125,7 +136,7 @@ const Profile = () => {
             <Button
               variant="link"
               size="small"
-              onClick={() => navigate("/home")}
+              onClick={() => back()}
             >
               Back
             </Button>
