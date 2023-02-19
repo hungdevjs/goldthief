@@ -182,7 +182,7 @@ const prepareTools = functions.https.onCall(async (data, context) => {
     }
 
     if (gameData.joiner.id === uid) {
-      const status = gameData.joiner.tools ? "in progress" : "preparing";
+      const status = gameData.host.tools ? "in progress" : "preparing";
 
       await admin
         .firestore()

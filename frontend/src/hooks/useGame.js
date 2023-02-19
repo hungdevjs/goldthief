@@ -17,10 +17,12 @@ const useGame = () => {
 
       setGame({ ...gameDoc.data(), id: user.activeGameId });
     } else setGame(null);
+
+    console.log(game);
   };
 
   const unsubcribe = async (id) => {
-    const unsub = await onSnapshot(doc(firestore, "games", id), (doc) => {
+    const unsub = onSnapshot(doc(firestore, "games", id), (doc) => {
       setGame({ ...doc.data(), id });
     });
 
@@ -30,11 +32,15 @@ const useGame = () => {
   const createGame = async (data) => {
     const gameDoc = await create(data);
 
+    unsubcribe(gameDoc.data.id);
+
     setGame(gameDoc.data);
   };
 
   const joinGame = async (data) => {
     const gameDoc = await join(data);
+
+    unsubcribe(gameDoc.data.id);
 
     setGame(gameDoc.data);
   };
@@ -56,17 +62,18 @@ const useGame = () => {
   }, [user]);
 
   useEffect(() => {
-    if (game?.id)
-      setPrepare(
-        game.host.id === user.id
-          ? { map: game.host.map || null, tools: game.host.tools || null }
-          : { map: game.joiner.map || null, tools: game.joiner.tools || null }
-      );
+    if (game?.id) {
+      game?.host.id === user?.id
+        ? setPrepare({
+            map: game.host?.map || null,
+            tools: game.host?.tools || null,
+          })
+        : setPrepare({
+            map: game.joiner?.map || null,
+            tools: game.joiner?.tools || null,
+          });
+    } else setPrepare({ map: null, tools: null });
   }, [game]);
-
-  useEffect(() => {
-    if (game?.id) unsubcribe(game.id);
-  }, []);
 
   return {
     createGame,

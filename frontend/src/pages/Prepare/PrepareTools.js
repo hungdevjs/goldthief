@@ -12,16 +12,21 @@ const PrepareTools = () => {
   const [countTools, setCountTools] = useState(0);
 
   const { isMobile } = useResponsive();
-  const { gameState, loadingState, prepareState } = useAppContext();
+  const { gameState, loadingState, authState, prepareState } = useAppContext();
 
   const { game, prepareGameTools } = gameState;
+  const { user } = authState;
   const { setIsLoading } = loadingState;
   const { tools, setTools, setToolsSelected } = prepareState;
 
   const handleChooseTool = async (toolName) => {
     setIsLoading(true);
     try {
-      if (countTools > 2) throw new Error("You can only bring up to 3 tools");
+      if (countTools > 2) {
+        setTools(tools.map((tool) => ({ ...tool, selected: null })));
+        setCountTools(0);
+        throw new Error("You can only bring up to 3 tools");
+      }
 
       setTools(
         tools.map((tool) => {
@@ -82,7 +87,9 @@ const PrepareTools = () => {
             fontWeight="600"
             fontSize={isMobile ? "16px" : "22px"}
           >
-            {game.host.username}
+            {game?.host.username === user.username
+              ? game.host.username
+              : game.joiner.username}
           </Typography>
         </Box>
         <Grid

@@ -1,8 +1,11 @@
 import { Box, Grid, Typography } from "@mui/material";
 import useResponsive from "../hooks/useResponsive";
+import useAppContext from "../hooks/useAppContext";
 
 const Layout = ({ children }) => {
   const { isMobile } = useResponsive();
+  const { authState } = useAppContext();
+  const { logout } = authState;
 
   return (
     <Box
@@ -47,6 +50,7 @@ const Layout = ({ children }) => {
         >
           Gold Thief
         </Typography>
+        {/* <button onClick={() => logout()}>Logout</button> */}
         <Box>{children}</Box>
       </Box>
     </Box>

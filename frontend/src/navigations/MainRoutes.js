@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import HomeRoute from "./HomeRoute";
@@ -15,36 +14,30 @@ const MainRoutes = () => {
   const { gameState } = useAppContext();
   const { game, prepare } = gameState;
 
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [gameStatus, setGameStatus] = useState(null);
-
-  useEffect(() => {
-    setGameStatus(game?.status);
-
-    setIsInitialized(true);
-  }, [game]);
-
-  if (!isInitialized) return null;
+  // console.log(game);
 
   return (
     <Routes>
-      {gameStatus === "waiting" ? (
+      {game?.status === "waiting" ? (
         <>
           <Route path="/waiting/*" element={<WaitingRoom />} />
-          <Route path="*" element={<Navigate to={`/waiting/${game.id}`} />} />
+          <Route path="*" element={<Navigate to={`/waiting/${game?.id}`} />} />
         </>
-      ) : gameStatus === "preparing" ? (
+      ) : game?.status === "preparing" ? (
         <>
           <Route
             path="/preparing/*"
             element={<PrepareRoute prepare={prepare} />}
           />
-          <Route path="*" element={<Navigate to={`/preparing/${game.id}`} />} />
+          <Route
+            path="*"
+            element={<Navigate to={`/preparing/${game?.id}`} />}
+          />
         </>
-      ) : gameStatus === "in progress" ? (
+      ) : game?.status === "in progress" ? (
         <>
           <Route path="/game/*" element={<GameRoute />} />
-          <Route path="*" element={<Navigate to={`/game/${game.id}`} />} />
+          <Route path="*" element={<Navigate to={`/game/${game?.id}`} />} />
         </>
       ) : (
         <>

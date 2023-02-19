@@ -1,7 +1,7 @@
 export const defaultTreasures = [
-  { type: 1, img: "/firstTreasure.png", quantity: 10 },
-  { type: 2, img: "/secondTreasure.png", quantity: 20 },
-  { type: 3, img: "/thirdTreasure.png", quantity: 30 },
+  { type: 1, img: "/firstTreasure.png", point: 10, quantity: 10 },
+  { type: 2, img: "/secondTreasure.png", point: 20, quantity: 5 },
+  { type: 3, img: "/thirdTreasure.png", point: 30, quantity: 10 },
 ];
 
 export const defaultCoordinates = Array.from(

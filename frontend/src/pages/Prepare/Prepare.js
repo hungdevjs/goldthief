@@ -9,14 +9,14 @@ import useAppContext from "../../hooks/useAppContext";
 
 const Prepare = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   const [chestChoosing, setChestChoosing] = useState(null);
 
   const { isMobile } = useResponsive();
-  const { gameState, loadingState, prepareState } = useAppContext();
+  const { gameState, loadingState, prepareState, authState } = useAppContext();
 
   const { game, prepareGameMap } = gameState;
+  const { user } = authState;
   const { setIsLoading } = loadingState;
   const { treasures, setTreasures, coordinates, setCoordinates } = prepareState;
 
@@ -35,15 +35,34 @@ const Prepare = () => {
     try {
       if (!chestChoosing) throw new Error("Please choose kind of treasure");
       if (
+        coordinates.find((coor) => coor.coordinate === coordinate)
+          .typeOfTreasure
+      ) {
+        setCoordinates(
+          coordinates.map((coor) => {
+            if (coor.coordinate === coordinate) {
+              setTreasures(
+                treasures.map((treasure) => {
+                  if (treasure.type === coor.typeOfTreasure)
+                    return { ...treasure, quantity: treasure.quantity + 1 };
+                  return treasure;
+                })
+              );
+              return { ...coor, typeOfTreasure: null };
+            }
+            return coor;
+          })
+        );
+
+        setIsLoading(false);
+        return;
+      }
+
+      if (
         treasures.find((treasure) => treasure.type === chestChoosing).quantity <
         1
       )
         throw new Error("You placed all the treasures");
-      if (
-        coordinates.find((coor) => coor.coordinate === coordinate)
-          .typeOfTreasure
-      )
-        throw new Error("This place already has a chest");
 
       setCoordinates(
         coordinates.map((coor) => {
@@ -52,12 +71,6 @@ const Prepare = () => {
           return coor;
         })
       );
-
-      const newTreasure = treasures.map((treasure) => {
-        if (treasure.type === chestChoosing)
-          return { ...treasure, quantity: treasure.quantity - 1 };
-        return treasure;
-      });
 
       setTreasures(
         treasures.map((treasure) => {
@@ -106,17 +119,18 @@ const Prepare = () => {
     <LayoutGame>
       <Box
         display="flex"
-        flexDirection="column"
-        width="60vw"
-        height="70vh"
+        flexDirection="row"
+        flexWrap="wrap"
+        width={isMobile ? "100vw" : "60vw"}
         borderRadius="24px"
-        sx={{ background: "rgba(255, 253, 253, 0.5)", px: 3, py: 4, mb: 3 }}
+        sx={{ background: "rgba(255, 253, 253, 0.5)", px: 2, py: 4, mb: 3 }}
       >
         <Box
           xs={12}
           p={1}
           mb={2}
           display="flex"
+          flexGrow="1"
           direction="row"
           justifyContent="space-between"
         >
@@ -125,36 +139,41 @@ const Prepare = () => {
             fontWeight="600"
             fontSize={isMobile ? "16px" : "22px"}
           >
-            {game.host.username}
+            {game?.host.username === user.username
+              ? game.host.username
+              : game.joiner.username}
           </Typography>
           <Typography
             fontFamily="'Luckiest Guy', cursive"
             fontWeight="600"
             fontSize={isMobile ? "16px" : "22px"}
           >
-            {game.joiner.username}
+            {game?.host.username === user.username
+              ? game.joiner.username
+              : game.host.username}
           </Typography>
         </Box>
         <Grid
           container
+          maxHeight="60vh"
           display="flex"
           flexDirection={isMobile ? "row" : "column"}
           justifyContent="space-between"
+          alignItems="center"
         >
           <Grid
             xs={12}
-            sm={2}
+            sm={3}
             display="flex"
             flexDirection={isMobile ? "row" : "column"}
             justifyContent="center"
             gap="20px"
-            alignItems="center"
           >
             {treasures.map((treasure) => (
               <Box
                 key={treasure.type}
-                width={isMobile ? "60px" : "100px"}
-                height={isMobile ? "60px" : "100px"}
+                width={isMobile ? "60px" : "80px"}
+                height={isMobile ? "60px" : "80px"}
                 display="flex"
                 flexDirection="column"
                 justifyContent="center"
@@ -178,7 +197,7 @@ const Prepare = () => {
                     fontSize: isMobile ? "16px" : "20px",
                   }}
                 >
-                  {treasure.quantity}
+                  {treasure.point}
                 </Typography>
               </Box>
             ))}
@@ -186,14 +205,16 @@ const Prepare = () => {
           <Grid
             xs={12}
             sm={10}
-            pl={isMobile ? 0 : 4}
+            pl={isMobile ? 0 : 2}
             pr={isMobile ? 0 : 2}
             pt={isMobile ? 2 : 0}
+            display="flex"
+            justifyContent="center"
           >
             <Grid
               container
-              width={isMobile ? "60vw" : "40vw"}
-              height={isMobile ? "50vh" : "60vh"}
+              width={isMobile ? "70vw" : "40vw"}
+              height={isMobile ? "50vh" : "55vh"}
               sx={{
                 background: "rgba(202, 202, 202, 0.6)",
                 borderRadius: "10px",
