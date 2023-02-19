@@ -139,7 +139,7 @@ const Prepare = () => {
             fontWeight="600"
             fontSize={isMobile ? "16px" : "22px"}
           >
-            {game?.host.username === user.username
+            {game?.host.id === user.id
               ? game.host.username
               : game.joiner.username}
           </Typography>
@@ -148,7 +148,7 @@ const Prepare = () => {
             fontWeight="600"
             fontSize={isMobile ? "16px" : "22px"}
           >
-            {game?.host.username === user.username
+            {game?.host.id === user.id
               ? game.joiner.username
               : game.host.username}
           </Typography>
