@@ -6,7 +6,7 @@ import useResponsive from "../../hooks/useResponsive";
 import useAppContext from "../../hooks/useAppContext";
 
 const BeforeStart = () => {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
   const { gameState, authState, prepareState } = useAppContext();
 
   const { game, prepare } = gameState;
@@ -40,7 +40,7 @@ const BeforeStart = () => {
         display="flex"
         flexDirection="row"
         flexWrap="wrap"
-        width={isMobile ? "100vw" : "60vw"}
+        width={isMobile ? "100vw" : isTablet ? "80vw" : "60vw"}
         borderRadius="24px"
         sx={{ background: "rgba(255, 253, 253, 0.5)", px: 2, py: 4, mb: 3 }}
       >
@@ -78,8 +78,8 @@ const BeforeStart = () => {
               .map((tool) => tools.find((t) => t.name === tool))
               .map((tool) => (
                 <Box
-                  width={isMobile ? "60px" : "80px"}
-                  height={isMobile ? "60px" : "80px"}
+                  width={isTablet ? "60px" : "80px"}
+                  height={isTablet ? "60px" : "80px"}
                   display="flex"
                   flexDirection="column"
                   justifyContent="center"
@@ -91,7 +91,7 @@ const BeforeStart = () => {
                   <img
                     src={tool.img}
                     alt={tool.name}
-                    width={isMobile ? "30px" : "50px"}
+                    width={isTablet ? "30px" : "50px"}
                   />
                 </Box>
               ))}
@@ -107,8 +107,8 @@ const BeforeStart = () => {
           >
             <Grid
               container
-              width={isMobile ? "70vw" : "40vw"}
-              height={isMobile ? "50vh" : "55vh"}
+              width={isTablet ? "80vw" : "50vw"}
+              height={isTablet ? "50vh" : "55vh"}
               sx={{
                 background: "rgba(202, 202, 202, 0.6)",
                 borderRadius: "10px",
@@ -118,7 +118,7 @@ const BeforeStart = () => {
               {coordinates.map((coor) => (
                 <Grid
                   item
-                  minHeight="30px"
+                  minHeight="40px"
                   xs={1.2}
                   display="flex"
                   justifyContent="center"

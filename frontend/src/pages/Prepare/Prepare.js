@@ -12,7 +12,7 @@ const Prepare = () => {
 
   const [chestChoosing, setChestChoosing] = useState(null);
 
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
   const { gameState, loadingState, prepareState, authState } = useAppContext();
 
   const { game, prepareGameMap } = gameState;
@@ -121,7 +121,7 @@ const Prepare = () => {
         display="flex"
         flexDirection="row"
         flexWrap="wrap"
-        width={isMobile ? "100vw" : "60vw"}
+        width={isMobile ? "100vw" : isTablet ? "80vw" : "60vw"}
         borderRadius="24px"
         sx={{ background: "rgba(255, 253, 253, 0.5)", px: 2, py: 4, mb: 3 }}
       >
@@ -213,8 +213,8 @@ const Prepare = () => {
           >
             <Grid
               container
-              width={isMobile ? "70vw" : "40vw"}
-              height={isMobile ? "50vh" : "55vh"}
+              width={isTablet ? "80vw" : "50vw"}
+              height={isTablet ? "50vh" : "55vh"}
               sx={{
                 background: "rgba(202, 202, 202, 0.6)",
                 borderRadius: "10px",
@@ -225,7 +225,7 @@ const Prepare = () => {
                 <Grid
                   key={coor.coordinate}
                   item
-                  minHeight="30px"
+                  minHeight="40px"
                   xs={1.2}
                   display="flex"
                   justifyContent="center"

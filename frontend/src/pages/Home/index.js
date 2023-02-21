@@ -12,18 +12,6 @@ const Home = () => {
 
   const { user, loginAnonymous } = authState;
 
-  const handleClickAnnoy = async () => {
-    setIsLoading(true);
-    console.log(isLoading)
-    console.log(setIsLoading)
-    try {
-      await user ? navigate("/join") : loginAnonymous();
-    } catch(err) {
-      console.log(err.message)
-    }
-    // setIsLoading(false)
-  }
-
   return (
     <Layout>
       <Box display="flex" flexDirection="column" spacing={3}>
@@ -38,13 +26,13 @@ const Home = () => {
             borderRadius: "10px",
           }}
           onClick={async () => {
-            setIsLoading(true)
+            setIsLoading(true);
             try {
-              navigate("/profile/")
-            } catch(err) {
-              console.log(err.message)
+              navigate("/profile/");
+            } catch (err) {
+              console.log(err.message);
             }
-            setIsLoading(false)
+            setIsLoading(false);
           }}
         >
           Profile
@@ -62,15 +50,15 @@ const Home = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-            onClick={async () => {
-              setIsLoading(true)
-              try {
-                navigate("/create")
-              } catch(err) {
-                console.log(err.message)
-              }
-              setIsLoading(false)
-            }}
+          onClick={async () => {
+            setIsLoading(true);
+            try {
+              navigate("/create");
+            } catch (err) {
+              console.log(err.message);
+            }
+            setIsLoading(false);
+          }}
         >
           Create room
         </Button>
@@ -88,14 +76,14 @@ const Home = () => {
           }}
           onClick={async () => {
             setIsLoading(true);
-            console.log(isLoading)
-            console.log(setIsLoading)
+            console.log(isLoading);
+            console.log(setIsLoading);
             try {
-              navigate("/join")
-            } catch(err) {
-              console.log(err.message)
+              navigate("/join");
+            } catch (err) {
+              console.log(err.message);
             }
-            setIsLoading(false)
+            setIsLoading(false);
           }}
         >
           Join
@@ -113,13 +101,13 @@ const Home = () => {
             borderRadius: "10px",
           }}
           onClick={async () => {
-            setIsLoading(true)
+            setIsLoading(true);
             try {
-              navigate("/guide")  
-            } catch(err) {
-              console.log(err.message)
+              navigate("/guide");
+            } catch (err) {
+              console.log(err.message);
             }
-            setIsLoading(false)
+            setIsLoading(false);
           }}
         >
           Guide

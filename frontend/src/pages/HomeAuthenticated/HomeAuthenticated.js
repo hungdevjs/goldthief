@@ -8,9 +8,19 @@ import { async } from "@firebase/util";
 const HomeAuthenticated = () => {
   const navigate = useNavigate();
   const { authState, loadingState } = useAppContext();
-  const { setIsLoading, isLoading } = loadingState;
+  const { setIsLoading } = loadingState;
 
-  const { user, loginAnonymous } = authState;
+  const { loginAnonymous } = authState;
+
+  const handleClickAnonymous = async () => {
+    setIsLoading(true);
+    try {
+      await loginAnonymous();
+    } catch (err) {
+      console.log(err.message);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <Layout>
@@ -27,15 +37,15 @@ const HomeAuthenticated = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-            onClick={async () => {
-              setIsLoading(true)
-              try {
-                navigate("/login");
-              } catch(err) {
-                console.log(err.message)
-              }
-              setIsLoading(false)
-            }}
+          onClick={async () => {
+            setIsLoading(true);
+            try {
+              navigate("/login");
+            } catch (err) {
+              console.log(err.message);
+            }
+            setIsLoading(false);
+          }}
         >
           Login
         </Button>
@@ -52,13 +62,13 @@ const HomeAuthenticated = () => {
             borderRadius: "10px",
           }}
           onClick={async () => {
-            setIsLoading(true)
+            setIsLoading(true);
             try {
-              navigate("/signup")
-            } catch(err) {
-              console.log(err.message)
+              navigate("/signup");
+            } catch (err) {
+              console.log(err.message);
             }
-            setIsLoading(false)
+            setIsLoading(false);
           }}
         >
           Sign Up
@@ -75,17 +85,7 @@ const HomeAuthenticated = () => {
             fontWeight: "600",
             borderRadius: "10px",
           }}
-          onClick={async () => {
-            setIsLoading(true);
-            console.log(isLoading)
-            console.log(setIsLoading)
-            try {
-              loginAnonymous();
-            } catch(err) {
-              console.log(err.message)
-            }
-            setIsLoading(false)
-          }}
+          onClick={() => handleClickAnonymous()}
         >
           Play as guest
         </Button>
@@ -102,13 +102,13 @@ const HomeAuthenticated = () => {
             borderRadius: "10px",
           }}
           onClick={async () => {
-            setIsLoading(true)
+            setIsLoading(true);
             try {
-              navigate("/guide")  
-            } catch(err) {
-              console.log(err.message)
+              navigate("/guide");
+            } catch (err) {
+              console.log(err.message);
             }
-            setIsLoading(false)
+            setIsLoading(false);
           }}
         >
           Guide

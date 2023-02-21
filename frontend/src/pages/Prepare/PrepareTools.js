@@ -71,7 +71,7 @@ const PrepareTools = () => {
       <Box
         display="flex"
         flexDirection="column"
-        width="60vw"
+        width={isMobile ? "100vw" : "60vw"}
         borderRadius="24px"
         sx={{
           background: "rgba(255, 253, 253, 0.5)",
@@ -101,7 +101,7 @@ const PrepareTools = () => {
           <Grid
             container
             xs={10}
-            p={isMobile ? 1 : 5}
+            p={isMobile ? 1 : 3}
             display="flex"
             justifyContent="center"
             gap="20px"
@@ -112,10 +112,17 @@ const PrepareTools = () => {
             }}
           >
             {tools.map((tool) => (
-              <Grid item xs={2.5} sm={4} md={2.5}>
+              <Grid
+                item
+                xs={2.5}
+                sm={4}
+                md={2.5}
+                display="flex"
+                justifyContent="center"
+              >
                 <Box
-                  width={isMobile ? "60px" : "100px"}
-                  height={isMobile ? "60px" : "100px"}
+                  width={isMobile ? "60px" : "90px"}
+                  height={isMobile ? "60px" : "90px"}
                   position="relative"
                   display="flex"
                   flexDirection="column"
