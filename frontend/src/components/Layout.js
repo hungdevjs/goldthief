@@ -22,6 +22,7 @@ const Layout = ({ children }) => {
         objectFit: "cover",
         backgroundSize: "cover",
         backgroundPosition: "center",
+
       }}
     >
       <Box
@@ -33,7 +34,7 @@ const Layout = ({ children }) => {
         display="flex"
         flexDirection="column"
         alignItems="center"
-        sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+        sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)", overflowY: "scroll" }}
       >
         <Typography
           fontFamily="'Luckiest Guy', cursive"
