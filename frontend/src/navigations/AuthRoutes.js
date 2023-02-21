@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginRoute from "./LoginRoute";
 import SignUpRoute from "./SignUpRoute";
 import GuideRoute from "./GuideRoute";
-import HomeAuthenticatedRoute from "./HomeAuthenticatedRoute";
+import HomeAuthenticated from "../pages/HomeAuthenticated/HomeAuthenticated";
 
 const AuthRoutes = () => {
   return (
@@ -11,7 +11,7 @@ const AuthRoutes = () => {
       <Route path="/signup/*" element={<SignUpRoute />} />
       <Route path="/login/*" element={<LoginRoute />} />
       <Route path="/guide" element={<GuideRoute />} />
-      <Route path="*" element={<HomeAuthenticatedRoute />} />
+      <Route path="*" element={<HomeAuthenticated />} />
     </Routes>
   );
 };
