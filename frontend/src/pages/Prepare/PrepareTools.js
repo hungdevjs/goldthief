@@ -23,8 +23,15 @@ const PrepareTools = () => {
     setIsLoading(true);
     try {
       if (countTools > 2) {
-        setTools(tools.map((tool) => ({ ...tool, selected: null })));
-        setCountTools(0);
+        setTools(
+          tools.map((tool) => {
+            if (tool.name === toolName) {
+              setCountTools(countTools - tool?.selected);
+              return { ...tool, selected: null };
+            }
+            return tool;
+          })
+        );
         throw new Error("You can only bring up to 3 tools");
       }
 
@@ -139,6 +146,8 @@ const PrepareTools = () => {
                     width={isMobile ? "25px" : "50px"}
                   />
                   <Typography
+                    fontFamily="'Luckiest Guy', cursive"
+                    fontWeight="600"
                     position="absolute"
                     top="5px"
                     right="5px"

@@ -225,7 +225,7 @@ const Prepare = () => {
                 <Grid
                   key={coor.coordinate}
                   item
-                  minHeight="40px"
+                  minHeight="30px"
                   xs={1.2}
                   display="flex"
                   justifyContent="center"

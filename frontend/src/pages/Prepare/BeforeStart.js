@@ -118,7 +118,7 @@ const BeforeStart = () => {
               {coordinates.map((coor) => (
                 <Grid
                   item
-                  minHeight="40px"
+                  minHeight="30px"
                   xs={1.2}
                   display="flex"
                   justifyContent="center"
