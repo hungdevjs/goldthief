@@ -49,7 +49,7 @@ const LayoutGame = ({ children }) => {
         >
           Gold Thief
         </Typography>
-        <button onClick={() => logout()}>Logout</button>
+        {/* <button onClick={() => logout()}>Logout</button> */}
         {children}
       </Box>
     </Box>
